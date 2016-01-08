@@ -36,7 +36,7 @@ class HttpKernel implements BridgeInterface
      * @param string|null $appenv The environment your application will use to bootstrap (if any)
      * @see http://stackphp.com
      */
-    public function bootstrap($appBootstrap, $appenv)
+    public function bootstrap($appBootstrap, $appenv, $appDebug)
     {
         // include applications autoload
         $autoloader = dirname(realpath($_SERVER['SCRIPT_NAME'])) . '/vendor/autoload.php';
@@ -46,7 +46,7 @@ class HttpKernel implements BridgeInterface
 
         $appBootstrap = $this->normalizeAppBootstrap($appBootstrap);
 
-        $bootstrap = new $appBootstrap($appenv);
+        $bootstrap = new $appBootstrap($appenv, $appDebug);
 
         if ($bootstrap instanceof BootstrapInterface) {
             $this->application = $bootstrap->getApplication();

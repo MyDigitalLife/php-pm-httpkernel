@@ -14,12 +14,16 @@ class Symfony implements StackableBootstrapInterface
      */
     protected $appenv;
 
+    /** @var bool */
+    protected $appDebug;
+
     /**
      * Instantiate the bootstrap, storing the $appenv
      */
-    public function __construct($appenv)
+    public function __construct($appenv, $appDebug = false)
     {
         $this->appenv = $appenv;
+        $this->appDebug = $appDebug;
     }
 
     /**
@@ -33,7 +37,7 @@ class Symfony implements StackableBootstrapInterface
 
         $this->includeAutoload();
 
-        $app = new \AppKernel($this->appenv, false);
+        $app = new \AppKernel($this->appenv, $this->appDebug);
         $app->loadClassCache();
 
         return $app;
